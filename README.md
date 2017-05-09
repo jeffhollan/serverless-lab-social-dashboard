@@ -2,26 +2,39 @@
 
 This lab will go over building a social dashboard using Azure Serverless technologies.  You can listen to any search term on Twitter and plot the sentiment, location, and key phrases of that tweet in real-time.
 
+To deploy the entire solution - click below:
+
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)  
+
 ## Pre-requisites
 
-All of the lab will take place within the Azure Portal.  So the only thing you need is an Azure account.
+The lab will all take place in the Azure Portal - so you will need an Azure Account.
+
+* Azure Account
+* Twitter Account
+* *Optional* Power BI Account
+* *Optional* Email Account (Outlook.com, Gmail, etc.)
 
 ## Getting started with the Logic App
 
-1. In the Azure Portal, click the **New** button, and under **Web + Mobile** select **Logic App**
+1. In the [Azure Portal](https://portal.azure.com), click the **New** button, and under **Enterprise Integration** select **Logic App**
 1. Give your logic app any name, resource group, and region that you want.  Click **Create**
-    * I recommend pinning the logic app to your dashboard for quick access later
+    * I recommend pinning the logic app to your dashboard for quick access later  
+    ![Create a Logic App](./images/1.png)  
 1. Once the logic app has deployed, open it to view the designer
-1. Click the **Blank Logic App** template to start from blank
+1. Click the **Blank Logic App** template to start from blank  
+    ![Create from blank](./images/2.png)  
 
 ### Adding the trigger to twitter
 
 Now that we are in the logic app designer, we can set the trigger for this app.  In this case we want to listen to new tweets from Twitter.
 
-1. Click the **Twitter** connector and the **When a new tweet is posted** trigger
+1. Click the **Twitter** connector and the **When a new tweet is posted** trigger.
 1. Login with a twitter account to access the twitter search API
+    * It will ask you to authenticate with your Twitter account. It's only the authenticate against the Tweet API and we won't be posting from the Logic App.
 1. Configure the trigger for a search term to listen  
     ![Twitter trigger][1]
+    * You can set the recurrence to a more frequent interval for faster updates, but a micro-charge is incurred for each poll on the Twitter API.  A single poll may return many tweets (so if you check every 3 minutes and in that 3 minutes 90 tweets are posted, all 90 tweets will be pulled in that one check).
 1. Add a **New Step** and **Add an action**, notice all of connectors to different services
 1. Add the **Text Analytics** connector and **Detect Sentiment** operation to detect the sentimet of the tweet.  It can have any name you want
     * You can sign up for a key here - but note it does sometimes take 10 minutes for key to activate: [Azure Portal create subscription](https://ms.portal.azure.com/#create/Microsoft.CognitiveServices)
